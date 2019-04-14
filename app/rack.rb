@@ -4,6 +4,12 @@ module App
   class Rack
     def call(env)
       request = ::Rack::Request.new(env)
+      handle_request(request)
+    end
+
+    private
+
+    def handle_request(request)
       http_verb = request.request_method
 
       case request.path_info
@@ -19,8 +25,12 @@ module App
           Responses::ResultResponse.call(result)
         end
       else
-        [404, { 'Content-Type' => 'text/html' }, ['Not Found!']]
+        not_found
       end
+    end
+
+    def not_found
+      [404, { 'Content-Type' => 'text/html' }, ['not_found']]
     end
   end
 end
