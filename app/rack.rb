@@ -7,10 +7,10 @@ module App
       http_verb = request.request_method
 
       case request.path_info
-      when %r{users\/([\d]+)}
+      when %r{users\/([\d]+)$}
         result = Services::Users::ShowService.call(request)
         Responses::ResultResponse.call(result)
-      when /users/
+      when /users$/
         if http_verb == 'POST'
           result = Services::Users::CreateService.call(request)
           Responses::ResultResponse.call(result)
