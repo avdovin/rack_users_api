@@ -41,9 +41,9 @@ module App
 
         def validate_email_format(email)
           if URI::MailTo::EMAIL_REGEXP.match?(email)
-            Failure(:wrong_email_format)
-          else
             Success(email)
+          else
+            Failure(:wrong_email_format)
           end
         end
 
